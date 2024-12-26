@@ -11,7 +11,15 @@ document.addEventListener('DOMContentLoaded', function () {
         if (contact) {
             // Fetch reservation details from the server based on the contact number
             fetch(`/api/reservations?contact=${contact}`) // Updated to use relative path
-                .then(response => response.json()) // Parse the JSON response
+                .then(response => {
+                    // Check if the response is JSON
+                    const contentType = response.headers.get("content-type");
+                    if (contentType && contentType.includes("application/json")) {
+                        return response.json(); // Parse JSON response
+                    } else {
+                        throw new Error("Response is not JSON");
+                    }
+                })
                 .then(reservation => {
                     if (reservation.message) {
                         // If no reservation is found, show the message
