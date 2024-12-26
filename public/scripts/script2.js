@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (contact) {
             // Fetch reservation details from the server based on the contact number
-            fetch(`http://localhost:3000/api/reservations?contact=${contact}`)
+            fetch(`/api/reservations?contact=${contact}`) // Updated to use relative path
                 .then(response => response.json()) // Parse the JSON response
                 .then(reservation => {
                     if (reservation.message) {
@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }).then((result) => {
             if (result.isConfirmed) {
                 // Send a request to cancel the reservation
-                fetch(`http://localhost:3000/api/cancel-reservation`, {
+                fetch(`/api/cancel-reservation`, { // Updated to use relative path
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ id: reservationId }), // Send reservation ID in the request body
